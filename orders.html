@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order History — Cybernetic Kitchen by Ayush Yadav</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --orange:#ff8c00;
+      --gold:#ffb84d;
+      --dark:#0a0a0a;
+      --line:#222;
+      --card:#121212;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--dark);
+      color:#eee;
+      font-family:Inter,sans-serif;
+    }
+    h1,h2,h3{
+      font-family:Orbitron,sans-serif;
+    }
+    .grid{
+      position:fixed;
+      inset:0;
+      background:
+        linear-gradient(to right, rgba(255,140,0,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,140,0,.05) 1px, transparent 1px);
+      background-size:60px 60px;
+      z-index:-1;
+    }
+    header{
+      padding:2rem 5vw;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .logo{
+      color:var(--orange);
+      font-weight:900;
+      font-size:1.3rem;
+    }
+    .wrap{
+      padding:3rem 5vw;
+      max-width:900px;
+      margin:auto;
+    }
+    .order{
+      background:var(--card);
+      border:1px solid var(--line);
+      padding:1.2rem;
+      margin-bottom:1rem;
+    }
+    .order h3{
+      margin:.2rem 0;
+      color:var(--orange);
+    }
+    .btn{
+      padding:.6rem 1.2rem;
+      background:linear-gradient(to right,var(--orange),var(--gold));
+      border:none;
+      font-weight:800;
+      cursor:pointer;
+    }
+    footer{
+      text-align:center;
+      padding:2rem;
+      color:#777;
+      border-top:1px solid #222;
+      margin-top:3rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="grid"></div>
+
+<header>
+  <div class="logo">CYBERNETIC KITCHEN</div>
+  <div>Designed by <strong>Ayush Yadav</strong></div>
+</header>
+
+<div class="wrap">
+  <h1>📦 Order History</h1>
+  <div id="orders"></div>
+
+  <button class="btn" onclick="go()">← Back to Store</button>
+</div>
+
+<footer>
+  Cybernetic Kitchen — Designed & Engineered by <strong>Ayush Yadav</strong>
+</footer>
+
+<script>
+const ordersDiv = document.getElementById("orders");
+let lastOrder = JSON.parse(localStorage.getItem("lastOrder") || "null");
+
+if(!lastOrder){
+  ordersDiv.innerHTML = "<p>No orders found yet.</p>";
+}else{
+  let html="";
+  let total=0;
+  const products = {
+    1:{name:"Neon Burger",price:199},
+    2:{name:"Quantum Pizza",price:299},
+    3:{name:"Plasma Noodles",price:179},
+    4:{name:"Cyber Sushi",price:349},
+    5:{name:"AI Ice Cream",price:149}
+  };
+  for(let id in lastOrder){
+    const p=products[id];
+    const q=lastOrder[id];
+    const sub=p.price*q;
+    total+=sub;
+    html+=`
+      <div class="order">
+        <h3>${p.name}</h3>
+        <p>Qty: ${q}</p>
+        <p>Subtotal: ₹${sub}</p>
+      </div>
+    `;
+  }
+  html+=`<h2>Total Paid: ₹${total}</h2>`;
+  ordersDiv.innerHTML=html;
+}
+
+function go(){
+  window.location.href="store.html";
+}
+</script>
+
+</body>
+</html>
