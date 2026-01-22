@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payment Successful</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{background:#111;color:#eee;text-align:center;font-family:Arial;padding:50px;}
+h1{color:#0f0;}
+a{background:#ff8c00;padding:10px 20px;border-radius:6px;color:#111;text-decoration:none;}
+.designer-badge{position:fixed;top:10px;left:10px;background:#111;border:1px solid #ff8c00;
+padding:8px 14px;border-radius:20px;color:#ffb84d;}
+</style>
+</head>
+<body>
+
+<div class="designer-badge">⚡ Designed by <strong>Ayush Yadav</strong></div>
+
+<h1>✅ Payment Successful</h1>
+<p id="msg"></p>
+<a href="store.html">Back to Store</a>
+
+<script>
+let name=localStorage.getItem("name");
+let total=localStorage.getItem("total");
+document.getElementById("msg").textContent=`Thank you ${name}! Your order of ₹${total} was successful.`;
+</script>
+
+</body>
+</html>
