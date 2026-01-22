@@ -1,97 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Cybernetic Kitchen – Store</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{background:#111;color:#eee;font-family:Arial,sans-serif;margin:0;padding:20px;}
-h1,h2{color:#ff8c00;}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;}
-.item{background:#1a1a1a;padding:15px;border:1px solid #333;border-radius:8px;}
-button{background:#ff8c00;border:none;padding:6px 10px;border-radius:4px;font-weight:bold;}
-.cart{position:fixed;right:10px;top:50px;background:#222;padding:15px;width:280px;border:1px solid #444;}
-.designer-badge{position:fixed;top:10px;left:10px;background:#111;border:1px solid #ff8c00;
-padding:8px 14px;border-radius:20px;color:#ffb84d;}
-footer{text-align:center;margin-top:40px;color:#ffb84d;}
-</style>
+  <meta charset="UTF-8">
+  <title>Cybernetic Kitchen Store — Designed by Ayush Yadav</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --orange:#ff8c00;
+      --gold:#ffb84d;
+      --dark:#0a0a0a;
+      --card:#121212;
+      --line:#222;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--dark);
+      color:#eee;
+      font-family:Inter,sans-serif;
+    }
+    h1,h2,h3{
+      font-family:Orbitron,sans-serif;
+      letter-spacing:-.03em;
+    }
+    header{
+      padding:2rem 5vw;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .logo{
+      font-size:1.4rem;
+      font-weight:900;
+      color:var(--orange);
+    }
+    .grid{
+      position:fixed;
+      inset:0;
+      background:
+        linear-gradient(to right, rgba(255,140,0,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,140,0,.05) 1px, transparent 1px);
+      background-size:60px 60px;
+      z-index:-1;
+    }
+    .wrap{
+      padding:3rem 5vw;
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:2rem;
+    }
+    .products{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:1.5rem;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      padding:1rem;
+    }
+    .card img{
+      width:100%;
+      height:160px;
+      object-fit:cover;
+      margin-bottom:1rem;
+      border:1px solid var(--line);
+    }
+    .card h3{
+      margin:.3rem 0;
+    }
+    .price{
+      color:var(--orange);
+      font-weight:700;
+    }
+    .btn{
+      margin-top:.8rem;
+      width:100%;
+      padding:.6rem;
+      background:var(--orange);
+      border:none;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .cart{
+      background:var(--card);
+      border:1px solid var(--line);
+      padding:1.2rem;
+      position:sticky;
+      top:2rem;
+    }
+    .cart-item{
+      display:flex;
+      justify-content:space-between;
+      margin:.5rem 0;
+      font-size:.9rem;
+    }
+    .qty{
+      display:flex;
+      gap:.3rem;
+    }
+    .qty button{
+      background:#333;
+      border:none;
+      color:#fff;
+      width:22px;
+      cursor:pointer;
+    }
+    .pay{
+      margin-top:1rem;
+      width:100%;
+      padding:.8rem;
+      background:linear-gradient(to right,var(--orange),var(--gold));
+      border:none;
+      font-weight:900;
+      cursor:pointer;
+    }
+    footer{
+      text-align:center;
+      padding:2rem;
+      color:#777;
+      border-top:1px solid #222;
+    }
+  </style>
 </head>
 <body>
 
-<div class="designer-badge">⚡ Designed by <strong>Ayush Yadav</strong></div>
+<div class="grid"></div>
 
-<h1>MENU</h1>
-<div class="grid" id="menu"></div>
+<header>
+  <div class="logo">CYBERNETIC KITCHEN</div>
+  <div>Designed by <strong>Ayush Yadav</strong></div>
+</header>
 
-<div class="cart">
-<h2>Cart</h2>
-<ul id="cart"></ul>
-<p>Total ₹<span id="total">0</span></p>
+<div class="wrap">
 
-<h3>Dummy Payment</h3>
-<input id="name" placeholder="Your Name"><br>
-<input id="card" placeholder="Card Number"><br><br>
-<button id="checkout">Pay Now</button>
+  <!-- PRODUCTS -->
+  <div class="products" id="products"></div>
+
+  <!-- CART -->
+  <div class="cart">
+    <h2>🛒 Cart</h2>
+    <div id="cartItems"></div>
+    <hr style="border-color:#222">
+    <h3>Total: ₹<span id="total">0</span></h3>
+    <button class="pay" onclick="pay()">💳 Pay Now (Dummy)</button>
+  </div>
+
 </div>
 
+<footer>
+  Cybernetic Kitchen Store — Designed & Engineered by <strong>Ayush Yadav</strong>
+</footer>
+
 <script>
-const items=[
-{name:"Quantum Burger",price:1549},
-{name:"Neon Ramen",price:1999},
-{name:"Cyber Steak",price:3749},
-{name:"Binary Salad",price:999},
-{name:"Neural Pasta",price:1849}
+const productData = [
+  {id:1,name:"Neon Burger",price:199,img:"https://images.unsplash.com/photo-1550547660-d9450f859349"},
+  {id:2,name:"Quantum Pizza",price:299,img:"https://images.unsplash.com/photo-1548365328-5b849e6f7c51"},
+  {id:3,name:"Plasma Noodles",price:179,img:"https://images.unsplash.com/photo-1604908177225-3caaea47c9b5"},
+  {id:4,name:"Cyber Sushi",price:349,img:"https://images.unsplash.com/photo-1579584425555-c3ce17fd4351"},
+  {id:5,name:"AI Ice Cream",price:149,img:"https://images.unsplash.com/photo-1505253216365-36f5c0d63b02"},
 ];
-let cart=[],total=0;
 
-const menu=document.getElementById("menu");
-const cartEl=document.getElementById("cart");
-const totalEl=document.getElementById("total");
+let cart = JSON.parse(localStorage.getItem("cart")||"{}");
 
-items.forEach(item=>{
-let d=document.createElement("div");
-d.className="item";
-d.innerHTML=`<h3>${item.name}</h3><p>₹${item.price}</p><button>Add</button>`;
-d.querySelector("button").onclick=()=>add(item);
-menu.appendChild(d);
+const productsDiv=document.getElementById("products");
+const cartDiv=document.getElementById("cartItems");
+const totalSpan=document.getElementById("total");
+
+productData.forEach(p=>{
+  const d=document.createElement("div");
+  d.className="card";
+  d.innerHTML=`
+    <img src="${p.img}">
+    <h3>${p.name}</h3>
+    <div class="price">₹${p.price}</div>
+    <button class="btn" onclick="add(${p.id})">Add to Cart</button>
+  `;
+  productsDiv.appendChild(d);
 });
 
-function add(item){
-let found=cart.find(i=>i.name===item.name);
-if(found){found.qty++;}
-else{cart.push({...item,qty:1});}
-total+=item.price;
-update();
+function add(id){
+  cart[id]=(cart[id]||0)+1;
+  save();
 }
-
-function remove(i){
-total-=cart[i].price;
-cart[i].qty--;
-if(cart[i].qty===0)cart.splice(i,1);
-update();
+function remove(id){
+  cart[id]--;
+  if(cart[id]<=0) delete cart[id];
+  save();
 }
-
-function update(){
-cartEl.innerHTML="";
-cart.forEach((i,idx)=>{
-let li=document.createElement("li");
-li.innerHTML=`${i.name} x${i.qty} - ₹${i.price*i.qty} <button onclick="remove(${idx})">-</button>`;
-cartEl.appendChild(li);
-});
-totalEl.textContent=total;
+function save(){
+  localStorage.setItem("cart",JSON.stringify(cart));
+  renderCart();
 }
+function renderCart(){
+  cartDiv.innerHTML="";
+  let total=0;
+  for(let id in cart){
+    const p=productData.find(x=>x.id==id);
+    const q=cart[id];
+    total+=p.price*q;
+    const row=document.createElement("div");
+    row.className="cart-item";
+    row.innerHTML=`
+      <span>${p.name} (${q})</span>
+      <div class="qty">
+        <button onclick="add(${id})">+</button>
+        <button onclick="remove(${id})">-</button>
+      </div>
+    `;
+    cartDiv.appendChild(row);
+  }
+  totalSpan.textContent=total;
+}
+renderCart();
 
-document.getElementById("checkout").onclick=()=>{
-let name=document.getElementById("name").value;
-let card=document.getElementById("card").value;
-if(!name||!card||cart.length===0){alert("Fill details & add items");return;}
-localStorage.setItem("total",total);
-localStorage.setItem("name",name);
-location.href="success.html";
+function pay(){
+  localStorage.setItem("lastOrder",JSON.stringify(cart));
+  localStorage.removeItem("cart");
+  window.location.href="success.html";
 }
 </script>
-
-<footer>⚙ Cybernetic Kitchen — Designed by Ayush Yadav</footer>
 
 </body>
 </html>
