@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cybernetic Kitchen – by Ayush Yadav</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange:#ff8c00;
+      --gold:#ffb84d;
+      --dark:#111;
+      --gray:#aaa;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:#0d0d0d;
+      color:#eee;
+      font-family:Inter,system-ui,sans-serif;
+      overflow-x:hidden;
+    }
+    h1,h2,h3,h4{
+      font-family:Orbitron, sans-serif;
+      letter-spacing:-0.03em;
+    }
+    .hero{
+      min-height:100vh;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:3rem;
+      padding:5rem 6vw;
+      align-items:center;
+    }
+    .tag{
+      color:var(--orange);
+      letter-spacing:.2em;
+      font-size:12px;
+    }
+    h1{
+      font-size:clamp(3rem,8vw,6rem);
+      line-height:.9;
+    }
+    .grad{
+      background:linear-gradient(to right,var(--orange),var(--gold));
+      -webkit-background-clip:text;
+      color:transparent;
+    }
+    p{
+      max-width:520px;
+      color:#bbb;
+      line-height:1.6;
+    }
+    .btn{
+      padding:14px 28px;
+      border:none;
+      font-weight:700;
+      background:var(--orange);
+      color:#111;
+      cursor:pointer;
+      margin-right:12px;
+    }
+    .btn.alt{
+      background:transparent;
+      color:#eee;
+      border:1px solid #444;
+    }
+    .hero-img{
+      position:relative;
+      overflow:hidden;
+      border:2px solid rgba(255,140,0,.3);
+    }
+    .hero-img img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform 1s ease;
+    }
+    .hero-img:hover img{
+      transform:scale(1.05);
+    }
+    section{
+      padding:6rem 6vw;
+    }
+    .features{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:2rem;
+    }
+    .card{
+      border:1px solid #333;
+      padding:2rem;
+      background:#151515;
+    }
+    footer{
+      text-align:center;
+      padding:3rem 1rem;
+      color:#777;
+      border-top:1px solid #222;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="tag">SYSTEM ONLINE v2.0 — by Ayush Yadav</div>
+    <h1>CYBER<br><span class="grad">NETIC</span><br>KITCHEN</h1>
+    <p>
+      Initiating culinary protocols. Experience the fusion of high-fidelity taste and cutting-edge gastronomy.
+      Designed and engineered by Ayush Yadav.
+    </p>
+    <div style="margin-top:2rem;">
+
+<a href="store.html"><button class="btn">Initialize Order</button></a>
+<a href="store.html"><button class="btn alt">View Menu Data</button></a>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="https://static.wixstatic.com/media/483694_091cc7b47ee740e4b8799069d00cab96~mv2.png" alt="Cyber Dish" />
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section>
+  <h2>System Specifications</h2>
+  <p>Core modules loaded. Culinary performance metrics activated.</p>
+  <div class="features">
+    <div class="card">
+      <h3>Best Sellers</h3>
+      <p>Discover our most loved dishes.</p>
+    </div>
+    <div class="card">
+      <h3>Top Rated</h3>
+      <p>5-star customer reviews.</p>
+    </div>
+    <div class="card">
+      <h3>Premium Quality</h3>
+      <p>Fresh ingredients daily.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:rgba(255,140,0,.05);text-align:center;">
+  <h2>INITIATE PROTOCOL</h2>
+  <p>The future of dining is one click away.</p>
+  <button class="btn" style="font-size:1.2rem;padding:18px 36px;">Order Now</button>
+</section>
+
+<footer>
+  Website Designed & Engineered by <strong>Ayush Yadav</strong>  
+  <br/>© 2026 Cybernetic Kitchen
+</footer>
+
+</body>
+</html>
