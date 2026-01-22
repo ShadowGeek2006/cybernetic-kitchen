@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cybernetic Kitchen – Store</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body{background:#111;color:#eee;font-family:Arial;margin:0;padding:20px}
+    h1{color:#ff8c00}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+    .item{background:#1a1a1a;padding:15px;border:1px solid #333}
+    button{background:#ff8c00;border:none;padding:10px 15px;font-weight:bold;cursor:pointer}
+    .cart{position:fixed;right:10px;top:10px;background:#222;padding:10px;border:1px solid #444}
+  </style>
+</head>
+<body>
+
+<h1>MENU</h1>
+<div class="grid" id="menu"></div>
+
+<div class="cart">
+  <h3>Cart</h3>
+  <ul id="cart"></ul>
+</div>
+
+<script>
+const items = [
+  {name:"Quantum Burger",price:1549},
+  {name:"Neon Ramen",price:1999},
+  {name:"Cyber Steak",price:3749},
+  {name:"Binary Salad",price:999}
+];
+
+const menu = document.getElementById("menu");
+const cart = document.getElementById("cart");
+
+items.forEach(i=>{
+  const div=document.createElement("div");
+  div.className="item";
+  div.innerHTML=`<h3>${i.name}</h3><p>₹${i.price}</p><button>Add to Cart</button>`;
+  div.querySelector("button").onclick=()=>{
+    const li=document.createElement("li");
+    li.textContent=i.name+" - ₹"+i.price;
+    cart.appendChild(li);
+  };
+  menu.appendChild(div);
+});
+</script>
+
+</body>
+</html>
