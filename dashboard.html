@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard — Cybernetic Kitchen by Ayush Yadav</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --orange:#ff8c00;
+      --gold:#ffb84d;
+      --dark:#0a0a0a;
+      --card:#121212;
+      --line:#222;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--dark);
+      color:#eee;
+      font-family:Inter,sans-serif;
+    }
+    h1,h2,h3{
+      font-family:Orbitron,sans-serif;
+    }
+    .grid{
+      position:fixed;
+      inset:0;
+      background:
+        linear-gradient(to right, rgba(255,140,0,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,140,0,.05) 1px, transparent 1px);
+      background-size:60px 60px;
+      z-index:-1;
+    }
+    header{
+      padding:2rem 5vw;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .logo{
+      color:var(--orange);
+      font-weight:900;
+      font-size:1.3rem;
+    }
+    .wrap{
+      padding:3rem 5vw;
+      max-width:1000px;
+      margin:auto;
+    }
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:1.5rem;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      padding:1.5rem;
+    }
+    .big{
+      font-size:2rem;
+      color:var(--orange);
+    }
+    .bar{
+      height:14px;
+      background:#222;
+      border:1px solid #333;
+      margin-top:.5rem;
+    }
+    .fill{
+      height:100%;
+      background:linear-gradient(to right,var(--orange),var(--gold));
+      width:0%;
+      transition:width .6s ease;
+    }
+    .btn{
+      margin-top:2rem;
+      padding:.7rem 1.3rem;
+      background:linear-gradient(to right,var(--orange),var(--gold));
+      border:none;
+      font-weight:900;
+      cursor:pointer;
+    }
+    footer{
+      text-align:center;
+      padding:2rem;
+      color:#777;
+      border-top:1px solid #222;
+      margin-top:3rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="grid"></div>
+
+<header>
+  <div class="logo">CYBERNETIC KITCHEN</div>
+  <div>Designed by <strong>Ayush Yadav</strong></div>
+</header>
+
+<div class="wrap">
+  <h1>👤 User Dashboard</h1>
+
+  <div class="stats">
+    <div class="card">
+      <h3>Orders</h3>
+      <div class="big" id="ordersCount">0</div>
+    </div>
+    <div class="card">
+      <h3>Total Spent</h3>
+      <div class="big">₹<span id="spent">0</span></div>
+    </div>
+    <div class="card">
+      <h3>Level</h3>
+      <div class="big" id="level">1</div>
+      <div class="bar"><div class="fill" id="xpBar"></div></div>
+      <small>XP Progress</small>
+    </div>
+  </div>
+
+  <button class="btn" onclick="go()">Go to Store</button>
+</div>
+
+<footer>
+  Cybernetic Kitchen — Designed & Engineered by <strong>Ayush Yadav</strong>
+</footer>
+
+<script>
+let lastOrder = JSON.parse(localStorage.getItem("lastOrder") || "null");
+let ordersCount = lastOrder ? 1 : 0;
+let spent = 0;
+
+if(lastOrder){
+  const prices={1:199,2:299,3:179,4:349,5:149};
+  for(let id in lastOrder){
+    spent += prices[id] * lastOrder[id];
+  }
+}
+
+let xp = ordersCount * 120 + Math.floor(spent/10);
+let level = Math.floor(xp / 300) + 1;
+let xpInLevel = xp % 300;
+
+document.getElementById("ordersCount").textContent = ordersCount;
+document.getElementById("spent").textContent = spent;
+document.getElementById("level").textContent = level;
+document.getElementById("xpBar").style.width = (xpInLevel/300*100)+"%";
+
+function go(){
+  window.location.href="store.html";
+}
+</script>
+
+</body>
+</html>
