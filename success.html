@@ -1,29 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Payment Successful</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{background:#111;color:#eee;text-align:center;font-family:Arial;padding:50px;}
-h1{color:#0f0;}
-a{background:#ff8c00;padding:10px 20px;border-radius:6px;color:#111;text-decoration:none;}
-.designer-badge{position:fixed;top:10px;left:10px;background:#111;border:1px solid #ff8c00;
-padding:8px 14px;border-radius:20px;color:#ffb84d;}
-</style>
+  <meta charset="UTF-8">
+  <title>Payment Success — Cybernetic Kitchen by Ayush Yadav</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --orange:#ff8c00;
+      --gold:#ffb84d;
+      --dark:#0a0a0a;
+      --line:#222;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--dark);
+      color:#eee;
+      font-family:Inter,sans-serif;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      text-align:center;
+    }
+    .grid{
+      position:fixed;
+      inset:0;
+      background:
+        linear-gradient(to right, rgba(255,140,0,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,140,0,.05) 1px, transparent 1px);
+      background-size:60px 60px;
+      z-index:-1;
+    }
+    .box{
+      background:#111;
+      border:1px solid var(--line);
+      padding:3rem 2rem;
+      max-width:420px;
+      width:90%;
+    }
+    h1{
+      font-family:Orbitron;
+      font-size:2.2rem;
+      color:var(--orange);
+    }
+    .check{
+      font-size:4rem;
+      margin-bottom:1rem;
+      animation:pop .6s ease;
+    }
+    @keyframes pop{
+      from{transform:scale(.3);opacity:0}
+      to{transform:scale(1);opacity:1}
+    }
+    .btn{
+      margin-top:1.5rem;
+      padding:.8rem 1.4rem;
+      background:linear-gradient(to right,var(--orange),var(--gold));
+      border:none;
+      font-weight:900;
+      cursor:pointer;
+    }
+    footer{
+      position:fixed;
+      bottom:1rem;
+      width:100%;
+      text-align:center;
+      color:#777;
+      font-size:.85rem;
+    }
+  </style>
 </head>
 <body>
 
-<div class="designer-badge">⚡ Designed by <strong>Ayush Yadav</strong></div>
+<div class="grid"></div>
 
-<h1>✅ Payment Successful</h1>
-<p id="msg"></p>
-<a href="store.html">Back to Store</a>
+<div class="box">
+  <div class="check">✔</div>
+  <h1>Payment Successful</h1>
+  <p>Your cyber-order has been processed.<br>Thank you for trusting <strong>Ayush Yadav’s</strong> system.</p>
+  <p>Transaction ID: <span id="tx"></span></p>
+  <button class="btn" onclick="go()">Back to Store</button>
+</div>
+
+<footer>
+  Cybernetic Kitchen — Designed & Engineered by <strong>Ayush Yadav</strong>
+</footer>
 
 <script>
-let name=localStorage.getItem("name");
-let total=localStorage.getItem("total");
-document.getElementById("msg").textContent=`Thank you ${name}! Your order of ₹${total} was successful.`;
+document.getElementById("tx").textContent = 
+  "TX-" + Math.random().toString(36).substr(2,8).toUpperCase();
+
+function go(){
+  window.location.href="store.html";
+}
 </script>
 
 </body>
